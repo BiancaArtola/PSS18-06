@@ -71,6 +71,8 @@ public class gui extends JFrame {
 	private Icon imagenVolverJugar[];
 	private Icon imagenSalir[];
 	
+	private boolean esAdmin;
+	private String usuario;
 	
 	/**
 	 * Launch the application.
@@ -79,7 +81,7 @@ public class gui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					gui frame = new gui();
+					gui frame = new gui(false, "");
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -91,12 +93,16 @@ public class gui extends JFrame {
 	
 	/**
 	 * Create the frame.
+	 * @param b 
 	 */
-	public gui() {
+	public gui(boolean bAdmin, String usuario) {
+		this.usuario = usuario;
+		esAdmin = bAdmin;
 		setTitle("Galaxian");
 		Image iconVentana = new ImageIcon(getClass().getResource("/Galaxian/Interfaz/iconVentana.png")).getImage();
 		setIconImage(iconVentana);
 		pantallaInicio();
+		
 	}
 	
 	
@@ -218,12 +224,15 @@ public class gui extends JFrame {
 		jlBanner.setIcon(imgBanner);
 		jlBanner.setBounds(50,30, 500, 300);
 		pInicio.add(jlBanner);
+	
 		
 		//botones Juegar, controles, salir
 		cargarImagenesBotones();
 		cargarBotonesPanelInicial();
 	}
 	
+
+
 	private void pantallaJuego() {
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -301,12 +310,12 @@ public class gui extends JFrame {
 		//Nivel 
 		nivel = new JLabel();
 		nivel.setBounds(5, 5, 60, 20);
-		this.add(nivel);
+		getContentPane().add(nivel);
 		
 		//Puntaje
 		puntaje = new JLabel();
 		puntaje.setBounds(width - 40, 5, 60, 20);
-		this.add(puntaje);
+		getContentPane().add(puntaje);
 		
 		//Vidas
 		x_vida = new int[3];
@@ -318,26 +327,26 @@ public class gui extends JFrame {
 		for(int i=0; i<vida.length; i++){
 			vida[i] = new JLabel(imagenVida[0]);
 			vida[i].setBounds(x_vida[i], height - 65, 30, 30);
-			this.add(vida[i]);
+			getContentPane().add(vida[i]);
 		}
 		
 		//Fuerza
 		fuerza = new JLabel();
 		fuerza.setIcon(imagenFuerza[0]);
 		fuerza.setBounds(width - 120,height - 65, 30, 30);
-		this.add(fuerza);
+		getContentPane().add(fuerza);
 		
 		//Congelar tiempo
 		congelar = new JLabel();
 		congelar.setIcon(imagenCongelar[0]);
 		congelar.setBounds(width - 80,height - 65, 30, 30);
-		this.add(congelar);
+		getContentPane().add(congelar);
 		
 		//Arma especial
 		armEspecial = new JLabel();
 		armEspecial.setIcon(imagenAEspecial[0]);
 		armEspecial.setBounds(width - 40,height - 65, 30, 30);
-		this.add(armEspecial);
+		getContentPane().add(armEspecial);
 	}
 	
 	private void actualizarVidas(int cantVidas, int porcVid) {
@@ -504,6 +513,22 @@ public class gui extends JFrame {
 		pInicio.add(jbJugar);
 		pInicio.add(jbControles);
 		pInicio.add(jbSalir);		
+		
+		logicaComentarios();
+		
+	}
+	
+	private void logicaComentarios() {
+		JButton btnComentario = new JButton("");
+		btnComentario.setBounds(10, 11, 89, 23);
+		pInicio.add(btnComentario);// TODO Auto-generated method stub		
+		if (esAdmin) {
+			btnComentario.setText("Ver comentarios");
+		}else {
+			btnComentario.setText("Dejar comentario");
+		}
+		OyenteBotonComentarios oyenteBC = new OyenteBotonComentarios();
+		btnComentario.addActionListener(oyenteBC);
 	}
 	
 	private void cargarBotonesPanelFinal() {
@@ -576,6 +601,17 @@ public class gui extends JFrame {
 		public void actionPerformed(ActionEvent e){
 			//Cierro ventana
 			dispose();
+		}
+	}
+	
+	private class OyenteBotonComentarios implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			if (!esAdmin) {
+				Comentar panelComentarios = new Comentar();
+				panelComentarios.setVisible(true);
+			}else {
+				
+			}
 		}
 	}
 }

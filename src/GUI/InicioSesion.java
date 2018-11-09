@@ -203,7 +203,11 @@ public class InicioSesion {
 			if (registrado) {
 				// TODO Auto-generated method stub
 				frame.setVisible(false);
-				gui gui2= new gui();
+				gui gui2;
+				if (usuario.equals("admin"))
+					gui2= new gui(true, "admin");
+				else
+					gui2=new gui(false, usuario);
 				gui2.show();
 			}
 			else {
@@ -215,6 +219,7 @@ public class InicioSesion {
 				
 		}
 	}
+	
 	class oyenteRegistrar implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -227,7 +232,7 @@ public class InicioSesion {
 				e.printStackTrace();
 			}
 			frame.setVisible(false);
-			gui gui2= new gui();
+			gui gui2= new gui(false, usuario);
 			gui2.show();
 		}
 	}
