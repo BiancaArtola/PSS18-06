@@ -520,7 +520,9 @@ public class gui extends JFrame {
 	
 	private void logicaComentarios() {
 		JButton btnComentario = new JButton("");
-		btnComentario.setBounds(10, 11, 89, 23);
+		btnComentario.setForeground(Color.WHITE);
+		btnComentario.setBackground(Color.BLACK);
+		btnComentario.setBounds(10, 11, 151, 23);
 		pInicio.add(btnComentario);// TODO Auto-generated method stub		
 		if (esAdmin) {
 			btnComentario.setText("Ver comentarios");
@@ -607,10 +609,11 @@ public class gui extends JFrame {
 	private class OyenteBotonComentarios implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if (!esAdmin) {
-				Comentar panelComentarios = new Comentar();
+				Comentar panelComentarios = new Comentar(usuario);
 				panelComentarios.setVisible(true);
 			}else {
-				
+				ComentarAdmin comentario = new ComentarAdmin();
+				comentario.setVisible(true);
 			}
 		}
 	}

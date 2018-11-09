@@ -52,7 +52,7 @@ public class InicioSesion {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 400, 300);
+		frame.setBounds(100, 100, 350, 250);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -76,11 +76,11 @@ public class InicioSesion {
 		frame.getContentPane().add(LabelContrasena);
 		
 		 btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(124, 113, 89, 20);
+		btnIngresar.setBounds(98, 113, 133, 20);
 		frame.getContentPane().add(btnIngresar);
 		
 		 btnRegistrar = new JButton("Registrarse");
-		btnRegistrar.setBounds(124, 138, 89, 23);
+		btnRegistrar.setBounds(98, 138, 133, 23);
 		frame.getContentPane().add(btnRegistrar);
 	
 		manejoBotones();
@@ -151,48 +151,7 @@ public class InicioSesion {
 		btnIngresar.addActionListener(new oyenteIngresar());
 		btnRegistrar.addActionListener(new oyenteRegistrar());		
 	}
-	
-	private void abrir (){         
-		try{                 
-			FileReader lector = new FileReader(archivo);
-			BufferedReader bufer = new BufferedReader(lector);
-			String linea = "";
-			linea = bufer.readLine();
-
-			while((linea = bufer.readLine()) != null){
-				System.out.println(linea);
-			}
-			
-			bufer.close();
-			lector.close();
-
-
-		}catch(Exception e){                 
-			e.printStackTrace();         
-		}
-	}
-	
-	private void guardar (){        
-		try{
-			FileWriter escritura = new FileWriter(archivo, true);
-			BufferedWriter Bsalida = new BufferedWriter(escritura);
-			PrintWriter cp = new PrintWriter(escritura);
-
-	/*		if(area.getText()!= null){
-				StringTokenizer tk = new StringTokenizer(area.getText(),"\n");
-				cp.println(area.getText());
-			}*/
-
-			cp.close();
-			Bsalida.close();
-			escritura.close();
-
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-
-	
+		
 	class oyenteIngresar implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
