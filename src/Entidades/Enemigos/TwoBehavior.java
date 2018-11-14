@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 import Colisionador.Colisionador;
 import Colisionador.ColisionadorEnemigoKamikaze;
 import Inteligencia.Buscador;
-import Inteligencia.Mareado;
 import Inteligencia.Estados.Tontear;
 
 /**

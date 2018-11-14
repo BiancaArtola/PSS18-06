@@ -23,7 +23,7 @@ public class Nivel {
 	public Nivel() {
 		N_Actual = N_Inicial;
 		fabrica = new FabricaEntidades();
-	}	
+	}
 	
 	//Metodos
 	
@@ -74,11 +74,11 @@ public class Nivel {
 		JuegoNivel juego = JuegoNivel.getInstance();
 		
 		BufferedReader br = null;
-		File fileNAct = new File(this.getClass().getResource("/Galaxian/Niveles/n"+N_Actual+"_enemigos.txt").getPath());
-		
+		InputStream s = this.getClass().getResourceAsStream("/Galaxian/Niveles/n"+N_Actual+"_enemigos.txt");
+				
 		try {
 			String sCurrentLine;
-			br = new BufferedReader(new FileReader(fileNAct));
+			br = new BufferedReader(new InputStreamReader(s));
 			// Para cada linea del archivo
             while ((sCurrentLine = br.readLine()) != null) {
             	// Para cada letra de la linea
@@ -123,11 +123,11 @@ public class Nivel {
 		JuegoNivel juego = JuegoNivel.getInstance();
 		
 		BufferedReader br = null;
-		File fileNAct = new File(this.getClass().getResource("/Galaxian/Niveles/n"+N_Actual+"_obstaculos.txt").getPath());
+		InputStream s = this.getClass().getResourceAsStream("/Galaxian/Niveles/n"+N_Actual+"_obstaculos.txt");
 		
 		try {
 			String sCurrentLine;
-			br = new BufferedReader(new FileReader(fileNAct));
+			br = new BufferedReader(new InputStreamReader(s));
 			// Para cada linea del archivo
             while ((sCurrentLine = br.readLine()) != null) {
             	// Para cada letra de la linea

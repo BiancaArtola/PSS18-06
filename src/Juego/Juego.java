@@ -61,6 +61,7 @@ public class Juego implements JuegoGrafica, JuegoEnemigo, JuegoJugador, JuegoHil
 			jugador.pausarDisparos();
 			muerteSubita();
 			gestorNivel.cargarEntidadesAlJuego();
+			actualizarGrafica();
 			jugador.pausarDisparos();
 			gui.repaint();
 		}

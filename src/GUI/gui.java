@@ -1,12 +1,10 @@
 package GUI;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,10 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;   
+import javax.swing.border.EmptyBorder;
 import Hilos.HiloPrincipal;
 import Juego.JuegoGrafica;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -59,10 +56,8 @@ public class gui extends JFrame {
 	
 	//Atributos panel final
 	private JPanel pFinal;
-	private JLabel jlGanar;
-	private JLabel jlPerder;
+	private JLabel jlBannerFinal;
 	private JLabel jlPuntaje;
-	//private Icon imagenFinal[]; //se usa en el caso de que se agreguen imagenes en la pantalla final.
 	private JButton jbVolverJugar;
 	
 	//Imagenes Botones ( normal: 0, press: 1, holding: 2 )
@@ -70,7 +65,6 @@ public class gui extends JFrame {
 	private Icon imagenControles[];
 	private Icon imagenVolverJugar[];
 	private Icon imagenSalir[];
-	
 	
 	/**
 	 * Launch the application.
@@ -99,7 +93,6 @@ public class gui extends JFrame {
 		pantallaInicio();
 	}
 	
-	
 	//Metodos extras
 
 	public int altoGrafica() {
@@ -111,24 +104,15 @@ public class gui extends JFrame {
 	}
 	
 	protected void accionesJugador(KeyEvent key){
-		
 		JuegoGrafica juego = JuegoGrafica.getInstance();
 		juego.obtenerJugador().accionar(key.getKeyCode());
 		this.repaint();
-		
 	}
 	
 	/**
 	 * Actualiza los indicadores de estado en la interfaz del juego.
 	 */
 	public void actualizarIndicadores() {
-		/**
-		 * TERMINAR
-		 * Se actualizaran:
-		 * Vida LISTO
-		 * Puntaje Falta tama�o texto
-		 * Nivel.Falta tama�o texto
-		 */
 		JuegoGrafica juego = JuegoGrafica.getInstance();
 		
 		puntaje.setText(""+juego.obtenerPuntaje());
@@ -147,27 +131,17 @@ public class gui extends JFrame {
 	 * @param gano verdadero si se gano, caso conrario, se perdio.
 	 */
 	public void partidaFinalizada(boolean gano) {
-		/**
-		 * TERMINAR
-		 * -Agregar:
-		 * 
-		 * 2) Poner el estado final de la partida con el puntaje obtenido.
-		 * 4) Opcional, cambiar fondo.
-		 */
-		
 		pantallaFinal();
 		
 		if(gano) {
-			jlGanar.setText("�Has ganado! ");
-			jlGanar.setForeground(Color.blue);
-			//jlGanar.setIcon(imagenFinal[1]);
-		    jlPuntaje.setForeground(Color.yellow); 	
+			jlBannerFinal.setIcon(new ImageIcon(this.getClass().getResource("/Galaxian/Interfaz/banner_ganar.png")));
+			jlBannerFinal.setBounds(150, 40, 300, 300);
+			jlPuntaje.setForeground(Color.green);
 		}
 		else {
-			jlPerder.setText("�Has perdido! ");
-			jlPerder.setForeground(Color.red); 
-			//jlPerder.setIcon(imagenFinal[0]);
-		    jlPuntaje.setForeground(Color.white); 	
+			jlBannerFinal.setIcon(new ImageIcon(this.getClass().getResource("/Galaxian/Interfaz/banner_perder.png")));
+			jlBannerFinal.setBounds(150, 40, 300, 300);
+			jlPuntaje.setForeground(Color.red);
 		}
 		
 		hiloPrincipal.stop();
@@ -207,9 +181,9 @@ public class gui extends JFrame {
 		
 		pInicio = new JPanel();
 		pInicio.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(pInicio);
 		pInicio.setLayout(null);
 		pInicio.setBackground(new Color(000));
+		setContentPane(pInicio);
 		
 		// Imagen superior
 		
@@ -261,34 +235,16 @@ public class gui extends JFrame {
 		pFinal.setLayout(null);
 		pFinal.setBackground(new Color(000));
 		
-		/*imagenFinal = new Icon [2];
-		imagenFinal[0] =  new ImageIcon(this.getClass().getResource("/Galaxian/Interfaz/fuerza_on.png"));
-		imagenFinal[1] =  new ImageIcon(this.getClass().getResource("/Galaxian/Interfaz/fuerza_off.png"));
-		*/
-		jlGanar = new JLabel();
-		//etiquetaGanar.setBounds(10, 10, 30, 30);
-		//this.add(etiquetaGanar);
+		jlBannerFinal = new JLabel();
+		pFinal.add(jlBannerFinal);
 		
-		jlGanar.setFont(new Font("Italica", Font.ITALIC, 15));
-		jlGanar.setHorizontalAlignment(SwingConstants.CENTER);
-		jlGanar.setBounds(200, 100, 150, 42);
-		pFinal.add(jlGanar);
-		
-		jlPerder= new JLabel();
-		//etiquetaPerder.setBounds(10, 10, 30, 30);
-		//this.add(etiquetaPerder);
-		
-		jlPerder.setFont(new Font("Italica", Font.ITALIC, 15));
-		jlPerder.setHorizontalAlignment(SwingConstants.CENTER);
-		jlPerder.setBounds(200, 100, 150, 42);
-		pFinal.add(jlPerder);
-		
+		//Etiqueta puntaje
 		JuegoGrafica juego = JuegoGrafica.getInstance();
 		jlPuntaje = new JLabel();
 		jlPuntaje.setText("Puntaje Obtenido: "+juego.obtenerPuntaje());
-		jlPuntaje.setFont(new Font("Italica", Font.ITALIC, 15));
+		jlPuntaje.setFont(new Font("Italica", Font.ITALIC, 25));
 		jlPuntaje.setHorizontalAlignment(SwingConstants.CENTER);
-		jlPuntaje.setBounds(200, 150, 150, 42);
+		jlPuntaje.setBounds(0, 340, 600, 100);
 		pFinal.add(jlPuntaje);
 		
 		cargarImagenesBotones();
@@ -547,7 +503,6 @@ public class gui extends JFrame {
 	/**
 	 * CLASES OYENTES
 	 */
-	
 	//Oyente boton Jugar
 	private class OJugar implements ActionListener{
 		public void actionPerformed(ActionEvent e){
@@ -559,7 +514,8 @@ public class gui extends JFrame {
 	//Oyente boton Jugar
 	private class OControles implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			
+			JDControles jdControles = new JDControles();
+			jdControles.setVisible(true);
 		}
 	}
 	
@@ -578,4 +534,7 @@ public class gui extends JFrame {
 			dispose();
 		}
 	}
+	
 }
+
+
