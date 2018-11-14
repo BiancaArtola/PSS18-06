@@ -24,9 +24,11 @@ public class ColisionadorEnemigoArmado extends Colisionador{
 	//Metodos
 
 	public void colisionarJugador(Jugador j) {
-		j.restarVida(enemigo.obtenerDanio());
-		enemigo.restarVida(j.obtenerDanio());
-		j.sumarPuntaje(-enemigo.getPuntaje());
+		if(!enemigo.estoyMuerto()) {
+			j.restarVida(enemigo.obtenerDanio());
+			enemigo.restarVida(j.obtenerDanio());
+			j.sumarPuntaje(-enemigo.getPuntaje());
+		}
 	}
 
 	public void colisionarEnemigoArmado(Enemigo e) {
@@ -38,9 +40,7 @@ public class ColisionadorEnemigoArmado extends Colisionador{
 	}
 	
 	public void colisionarObstaculo(Obstaculo o) {
-		/**
-		 * CONSULTAR ASISTENTE
-		 */
+		
 	}
 	
 	public void colisionarObstaculoBarricada(Obstaculo o) {

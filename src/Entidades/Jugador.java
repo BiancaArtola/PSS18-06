@@ -71,7 +71,7 @@ public class Jugador extends Entidad{
 				arma.accionar();
 			break;
 		}
-		case KeyEvent.VK_ALT : {//Disparo especial
+		case KeyEvent.VK_CONTROL : {//Disparo especial
 			if( !pausarDisparo && armaEspecial != null) {
 				armaEspecial.accionar();
 				armaEspecial = null;

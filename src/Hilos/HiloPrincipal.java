@@ -46,6 +46,8 @@ public class HiloPrincipal extends Thread{
 			colisionarEntidades();
 			elimEntidades();
 			
+			juego.actualizarGrafica();
+			
 			if(!juego.hayEnemigos()) {
 				juego.siguienteNivel();
 			}
@@ -61,17 +63,18 @@ public class HiloPrincipal extends Thread{
 	private void colisionarEnemigos() {
 		for(Enemigo enem : enemigos) {
 			enem.mover();
+			
 			synchronized(entidades) {
 			//Colisionar entidades
 			for(Entidad ent: entidades) {
-				if(colisionan(enem.getGrafico(), ent.getGrafico())) {
+				if(colisionan(enem.getGrafico(), ent.getGrafico()) || colisionan(ent.getGrafico(), enem.getGrafico())) {
 					enem.colisionar(ent);
 				}	
 			}
 			}
 			//colisionar Jugador
 			JuegoHilo juego = JuegoHilo.getInstance();
-			if(colisionan(enem.getGrafico(), juego.obtenerJugador().getGrafico())) {
+			if(colisionan(enem.getGrafico(), juego.obtenerJugador().getGrafico()) || colisionan( juego.obtenerJugador().getGrafico(), enem.getGrafico())) {
 				enem.colisionar(juego.obtenerJugador());
 				verificarVidaJugador();
 			}
@@ -92,21 +95,23 @@ public class HiloPrincipal extends Thread{
 			
 			//Colisionar entidades con enemigos
 			for(Enemigo enem : enemigos) {
-				if(colisionan(ent.getGrafico(), enem.getGrafico())) {
+				if(colisionan(ent.getGrafico(), enem.getGrafico()) || colisionan(enem.getGrafico(), ent.getGrafico())) {
 					ent.colisionar(enem);
-				}					
+				}
 			}
 			
 			//Colisionar entidades con entidades
 			for(Entidad ent2: entidades) {
-				if(colisionan(ent.getGrafico(), ent2.getGrafico())) {
-					ent.colisionar(ent2);
-				}	
+				if(ent != ent2) {
+					if(colisionan(ent.getGrafico(), ent2.getGrafico()) || colisionan(ent2.getGrafico(), ent.getGrafico())) {
+						ent.colisionar(ent2);
+					}
+				}
 			}
 			
 			//colisionar Jugador
 			JuegoHilo juego = JuegoHilo.getInstance();
-			if(colisionan(ent.getGrafico(), juego.obtenerJugador().getGrafico())) {
+			if(colisionan(ent.getGrafico(), juego.obtenerJugador().getGrafico()) || colisionan(juego.obtenerJugador().getGrafico(), ent.getGrafico()) ) {
 				ent.colisionar(juego.obtenerJugador());
 				verificarVidaJugador();
 			}
