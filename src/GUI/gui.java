@@ -50,6 +50,8 @@ public class gui extends JFrame {
 	private JLabel vida [];
 	private JLabel fuerza;
 	private JLabel congelar;
+	private JButton reiniciar;
+	private JButton salirJuego;
 	private JLabel armEspecial;
 	private int x_vida[];
 	private Icon imagenVida[];
@@ -333,11 +335,41 @@ public class gui extends JFrame {
 		congelar.setBounds(width - 80,height - 65, 30, 30);
 		this.add(congelar);
 		
+		//Boton reiniciar
+		reiniciar= new JButton("Reiniciar");
+		reiniciar.setBounds(200, 5, 100, 20);
+		pJuego.add(reiniciar);
+		Oyente oyenteReiniciar= new Oyente();
+		reiniciar.addActionListener(oyenteReiniciar);
+		
+		//Boton Salir
+		salirJuego= new JButton("Salir");
+		salirJuego.setBounds(300, 5, 100, 20);
+		pJuego.add(salirJuego);
+		OyenteSalir oyenteSalir= new OyenteSalir();
+		salirJuego.addActionListener(oyenteSalir);
+		
 		//Arma especial
 		armEspecial = new JLabel();
 		armEspecial.setIcon(imagenAEspecial[0]);
 		armEspecial.setBounds(width - 40,height - 65, 30, 30);
 		this.add(armEspecial);
+	}
+ 	
+ 	class Oyente implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			pJuego.setVisible(false);
+			hiloPrincipal.stop();
+			pantallaInicio();
+		}
+	}
+ 	
+	class OyenteSalir implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			dispose();
+		}
 	}
 	
 	private void actualizarVidas(int cantVidas, int porcVid) {
