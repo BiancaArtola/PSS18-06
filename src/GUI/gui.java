@@ -556,6 +556,15 @@ public class gui extends JFrame {
 		btnComentario.setBackground(Color.BLACK);
 		btnComentario.setBounds(10, 11, 151, 23);
 		pInicio.add(btnComentario);// TODO Auto-generated method stub		
+		
+		JButton btnCerrarSesion = new JButton("Cerrar sesion");
+		btnCerrarSesion.setForeground(Color.WHITE);
+		btnCerrarSesion.setBackground(Color.BLACK);
+		btnCerrarSesion.setBounds(433, 11, 151, 23);
+		pInicio.add(btnCerrarSesion);
+		OyenteBotonCerrar oyenteCerrar = new OyenteBotonCerrar();
+		btnCerrarSesion.addActionListener(oyenteCerrar);
+		
 		if (esAdmin) {
 			btnComentario.setText("Ver comentarios");
 		}else {
@@ -647,6 +656,14 @@ public class gui extends JFrame {
 				ComentarAdmin comentario = new ComentarAdmin();
 				comentario.setVisible(true);
 			}
+		}
+	}
+	
+	private class OyenteBotonCerrar implements ActionListener{
+		public void actionPerformed(ActionEvent e){			
+			dispose();
+			InicioSesion inicio = new InicioSesion();
+			inicio.setVisible(true);
 		}
 	}
 }

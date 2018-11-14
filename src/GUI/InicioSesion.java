@@ -3,26 +3,31 @@ package GUI;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class InicioSesion {
+public class InicioSesion extends JFrame {
 
-	private JFrame frame;
+	private JPanel contentPane;
 	private JTextField textContrasena;
 	private JTextField textUsuario;
 	private JButton btnIngresar;
 	private JButton btnRegistrar;
 	private File archivo;
+
 
 	/**
 	 * Launch the application.
@@ -31,8 +36,8 @@ public class InicioSesion {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InicioSesion window = new InicioSesion();
-					window.frame.setVisible(true);
+					InicioSesion frame = new InicioSesion();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,47 +46,43 @@ public class InicioSesion {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public InicioSesion() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 350, 250);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
+
 		textContrasena = new JTextField();
-		textContrasena.setBounds(98, 84, 133, 20);
-		frame.getContentPane().add(textContrasena);
+		textContrasena.setBounds(129, 124, 167, 20);
+		getContentPane().add(textContrasena);
 		textContrasena.setColumns(10);
 		
 		textUsuario = new JTextField();
 		textUsuario.setColumns(10);
-		textUsuario.setBounds(98, 29, 133, 20);
-		frame.getContentPane().add(textUsuario);
+		textUsuario.setBounds(129, 69, 167, 20);
+		getContentPane().add(textUsuario);
 		
 		JLabel LabelUsuario = new JLabel("Usuario");
-		LabelUsuario.setBounds(140, 11, 46, 14);
-		frame.getContentPane().add(LabelUsuario);
+		LabelUsuario.setBounds(194, 55, 46, 14);
+		getContentPane().add(LabelUsuario);
 		
 		JLabel LabelContrasena = new JLabel("Contrase\u00F1a");
 		LabelContrasena.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelContrasena.setBounds(108, 60, 105, 14);
-		frame.getContentPane().add(LabelContrasena);
+		LabelContrasena.setBounds(157, 109, 105, 14);
+		getContentPane().add(LabelContrasena);
 		
 		 btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(98, 113, 133, 20);
-		frame.getContentPane().add(btnIngresar);
+		btnIngresar.setBounds(129, 155, 167, 23);
+		getContentPane().add(btnIngresar);
 		
 		 btnRegistrar = new JButton("Registrarse");
-		btnRegistrar.setBounds(98, 138, 133, 23);
-		frame.getContentPane().add(btnRegistrar);
+		btnRegistrar.setBounds(129, 185, 167, 23);
+		getContentPane().add(btnRegistrar);
 	
 		manejoBotones();
 		
@@ -161,7 +162,7 @@ public class InicioSesion {
 			
 			if (registrado) {
 				// TODO Auto-generated method stub
-				frame.setVisible(false);
+				setVisible(false);
 				gui gui2;
 				if (usuario.equals("admin"))
 					gui2= new gui(true, "admin");
@@ -170,7 +171,7 @@ public class InicioSesion {
 				gui2.show();
 			}
 			else {
-				JOptionPane.showMessageDialog(frame,
+				JOptionPane.showMessageDialog(null,
 					    "Usuario o contrasena incorrectos.",
 					    "Error",
 					    JOptionPane.ERROR_MESSAGE);
@@ -190,9 +191,12 @@ public class InicioSesion {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			frame.setVisible(false);
+			setVisible(false);
 			gui gui2= new gui(false, usuario);
 			gui2.show();
 		}
 	}
+
+
+
 }
